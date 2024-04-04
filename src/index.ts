@@ -4,6 +4,9 @@ import {v4} from "uuid";
 import {ReadStream} from 'fs';
 import {ServiceAccount} from 'firebase-admin/lib/app/credential';
 
+const {getStorage} = require('firebase-admin/storage');
+
+
 interface File {
     name: string;
     alternativeText?: string;
@@ -36,14 +39,15 @@ const appName = "strapi-provider-firebase-storage";
 module.exports = {
 
     init(config: InitOptions) {
-        admin.initializeApp({
+        const app = admin.initializeApp({
             credential: admin.credential.cert(config.serviceAccount),
             // If you have a custom bucket this will set that bucket
             storageBucket: config.bucket,
         }, appName);
 
         // We set the custom bucket in the storageBucket option in the firbase admin init config
-        const bucket = admin.storage({name: appName, options: {}}).bucket();
+
+        const bucket = admin.storage(app).bucket();
 
         /**
          * This will help debug any potential issues with the library and can

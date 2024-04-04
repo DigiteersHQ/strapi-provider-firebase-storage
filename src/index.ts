@@ -31,16 +31,19 @@ interface InitOptions {
     debug?: boolean;
 }
 
+const appName = "strapi-provider-firebase-storage";
+
 module.exports = {
+
     init(config: InitOptions) {
         admin.initializeApp({
             credential: admin.credential.cert(config.serviceAccount),
             // If you have a custom bucket this will set that bucket
             storageBucket: config.bucket,
-        }, 'strapi-provider-firebase-storage');
+        }, appName);
 
         // We set the custom bucket in the storageBucket option in the firbase admin init config
-        const bucket = admin.storage().bucket();
+        const bucket = admin.storage({name: appName, options: {}}).bucket();
 
         /**
          * This will help debug any potential issues with the library and can

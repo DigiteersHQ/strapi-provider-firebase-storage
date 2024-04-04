@@ -1,5 +1,5 @@
 {
-  "name": "strapi-provider-firebase-storage",
+  "name": "@digiteers/strapi-provider-firebase-storage",
   "version": "1.0.4",
   "description": "A storage provider for the Strapi CMS that manages file uploads to Firebase Storage",
   "main": "dist/index.js",
